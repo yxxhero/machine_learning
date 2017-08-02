@@ -27,3 +27,5 @@ def splitDataSet(dataSet,axis,value):
            retDataSet.append(reduceFeatVec)
     return retDataSet
                
+def chooseBestFeatureToSplit(dataSet):
+    numFeatures=len(dataSet[0])-1
