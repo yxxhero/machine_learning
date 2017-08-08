@@ -8,7 +8,7 @@ def calcShannonEnt(dataSet):
         currentLabel=featVec[-1]
         if currentLabel not in labelCounts.keys():
             labelCounts[currentLabel]=0
-            labelCounts[currentLabel]+=1
+        labelCounts[currentLabel]+=1
     shannonEnt=0.0
     for key in labelCounts:
         prob=float(labelCounts[key])/numEntries
@@ -29,19 +29,21 @@ def splitDataSet(dataSet,axis,value):
                
 def chooseBestFeatureToSplit(dataSet):
     numFeatures=len(dataSet[0])-1
+    print numFeatures
     baseEntropy=calcShannonEnt(dataSet)
-    bestInfoGain=0.0,beatFeature=-1
+    bestInfoGain=0.0;beatFeature=-1
     for i in range(numFeatures):
+        print i
         featList=[example[i] for example in dataSet]
         uniqueVals=set(featList)
         newEntropy=0.0
         for value in uniqueVals:
             subDataSet=splitDataSet(dataSet,i,value)
             prob=len(subDataSet)/float(len(dataSet))
-            newEntropy+= prob +calcShannonEnt(subDataSet)
+            newEntropy += prob * calcShannonEnt(subDataSet)
         infoGain=baseEntropy - newEntropy
         if (infoGain > bestInfoGain):
             bestInfoGain=infoGain
             bestFeature=i
-     return beatFeature
+    return beatFeature
 
